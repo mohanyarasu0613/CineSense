@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page
-	import="java.util.*, com.spring.CineSense.Model.MovieDTO, com.spring.CineSense.Model.User"%>
+	import="java.util.*,com.spring.CineSense.DTO.MovieDTO, com.spring.CineSense.Model.User"%>
 
 <%
 User user = (User) session.getAttribute("loggedInUser");
@@ -166,7 +166,7 @@ body {
 				if (movies != null && !movies.isEmpty()) {
 					for (MovieDTO m : movies) {
 				%>
-				<form action="/movieDetails" method="get"
+				<form action="/movie/details" method="get"
 					style="text-decoration: none; color: white;">
 					<input type="hidden" name="movieId" value="<%=m.getImdbId()%>" />
 					<div class="movie-tile" onclick="this.parentNode.submit();">

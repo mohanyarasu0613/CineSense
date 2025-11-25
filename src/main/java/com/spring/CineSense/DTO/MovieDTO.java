@@ -1,4 +1,4 @@
-package com.spring.CineSense.Model;
+package com.spring.CineSense.DTO;
 
 public class MovieDTO {
 

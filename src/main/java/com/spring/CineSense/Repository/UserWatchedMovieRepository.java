@@ -6,4 +6,6 @@ import com.spring.CineSense.Model.UserWatchedMovie;
 
 public interface UserWatchedMovieRepository extends JpaRepository<UserWatchedMovie, Integer>{
 
+    boolean existsByUserUserIdAndMovieApiMovieId(int userId, String apiMovieId);
+	
 }
