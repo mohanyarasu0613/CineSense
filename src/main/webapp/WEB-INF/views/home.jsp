@@ -14,6 +14,7 @@ List<MovieDTO> movies = (List<MovieDTO>) request.getAttribute("movies");
 %>
 
 <!DOCTYPE html>
+
 <html>
 <head>
 <title>CineSense - Dashboard</title>
@@ -107,6 +108,13 @@ body {
 	text-align: center;
 	border-radius: 10px;
 	padding: 10px;
+	cursor: pointer;
+	transition: 0.2s;
+}
+
+.movie-tile:hover {
+	border-color: #ff9900;
+	transform: scale(1.05);
 }
 
 .movie-tile img {
@@ -121,6 +129,7 @@ body {
 	margin-top: 8px;
 }
 </style>
+
 </head>
 <body>
 
@@ -128,7 +137,9 @@ body {
 	<div class="navbar">
 		<div>CineSense</div>
 		<div>
-			<a href="/account">Account</a> <a href="/logout">Logout</a>
+			<a href="/wishlist">Wishlist</a> <a href="/watched">Watched</a> <a
+				href="/myreviews">My Reviews</a> <a href="/account">Account</a> <a
+				href="/logout">Logout</a>
 		</div>
 	</div>
 
@@ -150,38 +161,34 @@ body {
 
 		<!-- Movie Tiles -->
 		<div class="tiles-container">
-
 			<div class="movie-grid">
 				<%
 				if (movies != null && !movies.isEmpty()) {
 					for (MovieDTO m : movies) {
 				%>
-				<div class="movie-tile">
-					<img src="<%=m.getPoster()%>" alt="Poster">
-					<div class="movie-title">
-						<%=m.getTitle()%>
-						(<%=m.getYear()%>)
+				<form action="/movieDetails" method="get"
+					style="text-decoration: none; color: white;">
+					<input type="hidden" name="movieId" value="<%=m.getImdbId()%>" />
+					<div class="movie-tile" onclick="this.parentNode.submit();">
+						<img src="<%=m.getPoster()%>" alt="Poster">
+						<div class="movie-title">
+							<%=m.getTitle()%>
+							(<%=m.getYear()%>)
+						</div>
 					</div>
-				</div>
+				</form>
 				<%
 				}
 				} else {
 				%>
-
-				<!-- Default empty tiles -->
+				<!-- Show empty placeholders -->
 				<%
 				for (int i = 0; i < 8; i++) {
 				%>
 				<div class="movie-tile"></div>
-				<%
-				}
-				%>
-
-				<%
-				}
-				%>
+				<% } %>
+				<% } %>
 			</div>
-
 		</div>
 
 	</div>
