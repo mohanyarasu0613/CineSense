@@ -1,14 +1,18 @@
 package com.spring.CineSense.Controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.spring.CineSense.DTO.MovieDTO;
+import com.spring.CineSense.Model.MovieRating;
 import com.spring.CineSense.Model.User;
 import com.spring.CineSense.service.MovieAPIService;
 
@@ -81,5 +85,33 @@ public class MovieController {
 
         return "redirect:/movie/details?movieId=" + movieId;
     }
-}
+    
+    @GetMapping("/wishlist")
+    public String wishlist(HttpSession session, Model model) {
+    	User user = (User) session.getAttribute("loggedInUser");
+        List<MovieDTO> movies = movieService.getWishlistMovies(user.getUserId());
+        model.addAttribute("wishlistMovies", movies);
+		return "wishlist";
+	}
+    
+    @GetMapping("/watched")
+    public String watched(HttpSession session, Model model) {
+        User user = (User) session.getAttribute("loggedInUser");
+        List<MovieDTO> movies = movieService.getWatchedMovies(user.getUserId());
+        model.addAttribute("watchedMovies", movies);
+    	return "watched";
+    }
+    
+    @GetMapping("/myReviews")
+    public String myReviews(HttpSession session, Model model) {
 
+    	User user = (User) session.getAttribute("loggedInUser");
+    	
+        List<MovieRating> reviews = movieService.getMyRatings(user.getUserId());
+
+        model.addAttribute("reviews", reviews);
+        
+    	return "myReviews";
+    }
+
+}

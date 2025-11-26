@@ -91,7 +91,7 @@ public class Basic {
 	    return "home";
 	}
 	
-	@PostMapping(value = "/searchMovie")
+	@GetMapping(value = "/searchMovie")
 	public String searchMovie(@RequestParam("movieName") String moviename, Model model) {
 		model.addAttribute("movies", movieapiservice.searchMovies(moviename));
 		return "home";

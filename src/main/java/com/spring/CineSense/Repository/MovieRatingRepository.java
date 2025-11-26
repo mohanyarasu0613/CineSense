@@ -1,5 +1,6 @@
 package com.spring.CineSense.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,5 +12,7 @@ public interface MovieRatingRepository extends JpaRepository<MovieRating, Intege
 	boolean existsByUserUserIdAndMovieApiMovieId(int userId, String apiMovieId);
 
 	Optional<MovieRating> findByUserUserIdAndMovieApiMovieId(int userId, String apiMovieId);
+
+	List<MovieRating> findByUserUserId(int userId);
 	
 }

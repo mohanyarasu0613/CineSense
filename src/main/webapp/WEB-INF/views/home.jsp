@@ -137,8 +137,8 @@ body {
 	<div class="navbar">
 		<div>CineSense</div>
 		<div>
-			<a href="/wishlist">Wishlist</a> <a href="/watched">Watched</a> <a
-				href="/myreviews">My Reviews</a> <a href="/account">Account</a> <a
+			<a href="/movie/wishlist">Wishlist</a> <a href="/movie/watched">Watched</a> <a
+				href="/movie/myReviews">My Reviews</a> <a href="/account">Account</a> <a
 				href="/logout">Logout</a>
 		</div>
 	</div>

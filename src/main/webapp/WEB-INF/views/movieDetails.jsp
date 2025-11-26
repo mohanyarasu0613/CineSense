@@ -64,12 +64,15 @@ textarea {
 	padding: 10px;
 	border-radius: 8px;
 }
+
 </style>
 
 </head>
 
 <body>
 
+<jsp:include page="navbar.jsp" />
+	
 	<div class="container">
 
 		<h1>${movie.title}(${movie.year})</h1>

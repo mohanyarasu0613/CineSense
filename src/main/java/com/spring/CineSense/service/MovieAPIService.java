@@ -4,6 +4,7 @@ package com.spring.CineSense.service;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -220,5 +221,51 @@ public class MovieAPIService {
 
         ratingRepo.save(mr);
     }
+    
+    public List<MovieDTO> getWishlistMovies(int userId) {
+        List<UserSavedMovie> savedList = savedRepo.findByUserUserId(userId);
+        List<MovieDTO> result = new ArrayList<>();
 
+        for (UserSavedMovie saved : savedList) {
+            Movie m = saved.getMovie();
+
+            if (m == null) continue;
+
+            MovieDTO dto = new MovieDTO();
+            dto.setImdbId(m.getApiMovieId());
+            dto.setTitle(m.getTitle());
+            dto.setYear(m.getReleaseYear());
+            dto.setPoster(m.getPosterUrl());
+
+            result.add(dto);
+        }
+
+        return result;
+    }
+
+    public List<MovieDTO> getWatchedMovies(int userId) {
+        List<UserWatchedMovie> watchedList = watchedRepo.findByUserUserId(userId);
+        List<MovieDTO> result = new ArrayList<>();
+
+        for (UserWatchedMovie wm : watchedList) {
+            Movie m = wm.getMovie();
+
+            if (m == null) continue;
+
+            MovieDTO dto = new MovieDTO();
+            dto.setImdbId(m.getApiMovieId());
+            dto.setTitle(m.getTitle());
+            dto.setYear(m.getReleaseYear());
+            dto.setPoster(m.getPosterUrl());
+
+            result.add(dto);
+        }
+
+        return result;
+    }
+
+    public List<MovieRating> getMyRatings(int userId) {
+        return ratingRepo.findByUserUserId(userId);
+    }
+    
 }
